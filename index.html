@@ -103,10 +103,10 @@
     .status { position: absolute; top: 15px; left: 26px; right: 26px; display: flex; justify-content: space-between; font-size: 12px; font-weight: 600; color: #dfe2ff; }
     .clock { font-family: var(--display); font-size: 54px; font-weight: 600; letter-spacing: -0.04em; line-height: 1; text-align: center; margin-top: 18px; }
     .date { text-align: center; color: #b9bde4; font-size: 13px; margin: 6px 0 34px; }
-    .apps-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+    .apps-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
     .apps-row figure { margin: 0; display: grid; justify-items: center; gap: 7px; }
     .apps-row img { width: 100%; height: auto; aspect-ratio: 1; border-radius: 22%; box-shadow: 0 10px 24px -8px rgba(0,0,0,.8); }
-    .apps-row figcaption { font-size: 11.5px; color: #e4e6ff; font-weight: 500; }
+    .apps-row figcaption { font-size: 10.5px; white-space: nowrap; color: #e4e6ff; font-weight: 500; }
     .widget { margin-top: 22px; padding: 14px; border-radius: 20px; background: rgba(255,255,255,.08); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,.1); }
     .widget small { display: block; font-size: 10.5px; letter-spacing: .1em; text-transform: uppercase; color: #b9bde4; margin-bottom: 8px; }
     .widget .bar { height: 6px; border-radius: 99px; background: rgba(255,255,255,.12); overflow: hidden; }
@@ -196,6 +196,38 @@
     .app-helpline { --glow: #2ed573; --accent: #43e08a; }
     .app-wayback { --glow: #c6f432; --accent: #c6f432; }
 
+    /* Helpline Track (wide card) */
+    .track-card { scroll-margin-top: 90px; }
+    .track-card {
+      position: relative; overflow: hidden; isolation: isolate;
+      display: grid; grid-template-columns: 1.15fr 1fr; gap: 48px; align-items: center;
+      margin-top: 22px; padding: 40px; border-radius: var(--radius-lg);
+      background: linear-gradient(180deg, var(--surface-2), var(--surface));
+      border: 1px solid var(--line);
+    }
+    .track-card::before {
+      content: ""; position: absolute; width: 460px; height: 460px; left: -160px; top: -220px; z-index: -1;
+      border-radius: 50%; background: #c55048; opacity: .22; filter: blur(80px);
+    }
+    .track-head { display: flex; gap: 18px; align-items: center; margin-bottom: 20px; }
+    .track-head img { width: 76px; height: 76px; border-radius: 20px; box-shadow: 0 16px 36px -12px rgba(0,0,0,.8), 0 0 0 1px rgba(255,255,255,.1); }
+    .track-head .tag { display: inline-block; margin-bottom: 8px; color: #ff9d95; border-color: rgba(197,80,72,.5); }
+    .track-card h3 { font-size: 30px; }
+    .track-card .kind { color: #ff8a80; font-weight: 600; font-size: 15px; margin: 4px 0 0; }
+    .track-card .desc { color: var(--muted); margin: 0 0 20px; }
+    .track-card ul { list-style: none; padding: 0; margin: 0 0 28px; display: grid; grid-template-columns: 1fr 1fr; gap: 9px 20px; font-size: 15px; color: #c9cce6; }
+    .track-card ul li { display: flex; gap: 10px; align-items: flex-start; }
+    .track-card ul li::before { content: ""; flex: none; width: 6px; height: 6px; border-radius: 50%; background: #ff8a80; margin-top: 9px; }
+    .flow { list-style: none; margin: 0; padding: 0; display: grid; gap: 14px; position: relative; }
+    .flow::before { content: ""; position: absolute; left: 27px; top: 30px; bottom: 30px; width: 2px; background: linear-gradient(#43e08a, #c55048, var(--lime)); opacity: .55; }
+    .flow li { position: relative; display: grid; grid-template-columns: 56px 1fr; gap: 16px; align-items: center; padding: 14px 0; }
+    .flow .dot { position: relative; width: 56px; height: 56px; border-radius: 16px; display: grid; place-items: center; background: var(--ink); border: 1px solid var(--line); overflow: hidden; }
+    .flow .dot img { width: 100%; height: 100%; }
+    .flow .dot svg { width: 26px; height: 26px; color: var(--lime); }
+    .flow b { display: block; font-size: 16.5px; margin-bottom: 2px; }
+    .flow div span { color: var(--muted); font-size: 14.5px; }
+    @media (max-width: 1000px) { .track-card { grid-template-columns: 1fr; gap: 32px; max-width: 620px; margin-inline: auto; } }
+
     .swipe-hint, .carousel-dots { display: none; }
 
     /* ---------- Services ---------- */
@@ -234,8 +266,8 @@
     .team-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 22px; max-width: 920px; margin-inline: auto; }
     .member { display: flex; gap: 22px; align-items: center; padding: 28px; border-radius: var(--radius-lg); background: var(--surface); border: 1px solid var(--line); min-width: 0; }
     .member > div { min-width: 0; }
-    .avatar { flex: none; width: 88px; height: 88px; border-radius: 26px; display: grid; place-items: center; font-family: var(--display); font-size: 30px; font-weight: 700; color: #fff; background: var(--grad); box-shadow: 0 14px 36px -14px rgba(124,92,255,.8); }
-    .member.alt .avatar { background: linear-gradient(135deg, #22d3ee, #5b8cff); }
+    .avatar { flex: none; width: 88px; height: 88px; border-radius: 26px; overflow: hidden; background: #f0f0f0; box-shadow: 0 14px 36px -14px rgba(0,0,0,.8), 0 0 0 1px rgba(255,255,255,.12); }
+    .avatar svg { display: block; width: 100%; height: 100%; }
     .member h3 { font-size: 22px; margin-bottom: 4px; }
     .member .role { color: var(--violet-2); font-weight: 600; font-size: 15px; margin: 0 0 12px; }
     .member a { display: inline-flex; align-items: center; gap: 8px; font-size: 15px; color: var(--muted); overflow-wrap: anywhere; }
@@ -303,7 +335,8 @@
       .screen { border-radius: 31px; padding: 46px 16px 16px; }
       .clock { font-size: 44px; margin-top: 10px; }
       .date { margin-bottom: 24px; }
-      .apps-row { gap: 10px; }
+      .apps-row { gap: 8px; }
+      .apps-row figcaption { font-size: 9px; }
       .widget { margin-top: 16px; }
       .code-card { display: none; }
       .play-card { right: 50%; top: auto; bottom: -8px; translate: 50% 0; animation: none; white-space: nowrap; }
@@ -329,6 +362,15 @@
       .carousel-dots button { width: 8px; height: 8px; padding: 0; border: 0; border-radius: 99px; background: var(--line); transition: width .25s, background .25s; cursor: pointer; }
       .carousel-dots button.on { width: 24px; background: var(--grad); }
       .swipe-hint { display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--dim); margin: -24px 0 18px; }
+
+      .track-card { padding: 24px; border-radius: 24px; gap: 24px; margin-top: 28px; }
+      .track-head img { width: 64px; height: 64px; border-radius: 18px; }
+      .track-card h3 { font-size: 26px; }
+      .track-card ul { grid-template-columns: 1fr; }
+      .track-card .btn { width: 100%; }
+      .flow li { grid-template-columns: 48px 1fr; }
+      .flow .dot { width: 48px; height: 48px; border-radius: 14px; }
+      .flow::before { left: 23px; }
 
       /* services: compact rows */
       .svc-grid { grid-template-columns: 1fr; border-radius: 22px; }
@@ -356,7 +398,7 @@
 
       /* team */
       .member { padding: 20px; gap: 16px; border-radius: 22px; }
-      .avatar { width: 64px; height: 64px; border-radius: 20px; font-size: 22px; }
+      .avatar { width: 64px; height: 64px; border-radius: 20px; }
       .member h3 { font-size: 19px; }
       .member .role { margin-bottom: 8px; font-size: 14px; }
       .member a { font-size: 14px; }
@@ -440,7 +482,7 @@
             <a class="btn" href="#contact">Work with us</a>
           </div>
           <div class="hero-proof">
-            <div><strong>3</strong><span>apps in our lineup</span></div>
+            <div><strong>4</strong><span>apps in our lineup</span></div>
             <div><strong>1</strong><span>live on Google Play</span></div>
             <div><strong>0</strong><span>ads or trackers</span></div>
           </div>
@@ -464,6 +506,7 @@
                 <figure><img src="/assets/apps/dejadot.png" alt="" width="512" height="512"><figcaption>Dejadot</figcaption></figure>
                 <figure><img src="/assets/apps/helpline.png" alt="" width="512" height="512"><figcaption>Helpline</figcaption></figure>
                 <figure><img src="/assets/apps/wayback.png" alt="" width="512" height="512"><figcaption>WayBack</figcaption></figure>
+                <figure><img src="/assets/apps/helpline-track.png" alt="" width="512" height="512"><figcaption>Track</figcaption></figure>
               </div>
               <div class="widget">
                 <small>Next release</small>
@@ -512,7 +555,7 @@
             <ul>
               <li>Nearby emergency contacts by location</li>
               <li>Search, one-tap dialing, recent calls</li>
-              <li>Saved locations for quick access</li>
+              <li>SOS: request help from nearby responders</li>
             </ul>
             <div class="foot">
               <a class="gplay" href="https://play.google.com/store/apps/details?id=com.helpline.app" target="_blank" rel="noopener" aria-label="Get Helpline on Google Play">
@@ -562,6 +605,32 @@
           </article>
         </div>
         <div class="carousel-dots" id="carousel-dots" aria-hidden="true"><button class="on"></button><button></button><button></button></div>
+
+        <article class="track-card reveal" id="helpline-track">
+          <div>
+            <div class="track-head">
+              <img src="/assets/apps/helpline-track.png" alt="Helpline Track app icon" width="512" height="512" loading="lazy">
+              <div>
+                <span class="tag">For responders</span>
+                <h3>Helpline Track</h3>
+                <p class="kind">Live SOS console for response stations</p>
+              </div>
+            </div>
+            <p class="desc">The other half of Helpline's SOS feature. When someone asks for help in Helpline, nearby response stations see the request on a live map, route to the person, talk with them by text or voice, and mark it resolved when help arrives.</p>
+            <ul>
+              <li>Live map with instant SOS alerts</li>
+              <li>Driving route and ETA</li>
+              <li>Text and voice replies</li>
+              <li>Alert radius from 1 to 50 km</li>
+            </ul>
+            <a class="btn" href="mailto:jyamz7690@gmail.com?subject=Helpline%20Track%20station%20access">Request station access</a>
+          </div>
+          <ol class="flow" aria-label="How Helpline SOS works">
+            <li><span class="dot"><img src="/assets/apps/helpline.png" alt="" width="512" height="512" loading="lazy"></span><div><b>Someone asks for help</b><span>They tap SOS in Helpline. Their location and details go to nearby stations.</span></div></li>
+            <li><span class="dot"><img src="/assets/apps/helpline-track.png" alt="" width="512" height="512" loading="lazy"></span><div><b>A station is alerted</b><span>Helpline Track sounds an alarm and pins the request on the map.</span></div></li>
+            <li><span class="dot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span><div><b>Help arrives</b><span>Responders route, reply and resolve the request.</span></div></li>
+          </ol>
+        </article>
       </div>
     </section>
 
@@ -651,7 +720,7 @@
         </div>
         <div class="team-grid">
           <article class="member reveal">
-            <div class="avatar" aria-hidden="true">CT</div>
+            <div class="avatar"><svg viewBox="0 0 6 6" shape-rendering="crispEdges" role="img" aria-label="Cris John Rey Tarpin avatar"><rect width="6" height="6" fill="#f0f0f0"/><g fill="#cca83a"><rect x="0.5" y="0.5" width="1" height="1"/><rect x="0.5" y="2.5" width="1" height="1"/><rect x="0.5" y="4.5" width="1" height="1"/><rect x="1.5" y="0.5" width="1" height="1"/><rect x="1.5" y="2.5" width="1" height="1"/><rect x="1.5" y="3.5" width="1" height="1"/><rect x="2.5" y="0.5" width="1" height="1"/><rect x="2.5" y="1.5" width="1" height="1"/><rect x="2.5" y="2.5" width="1" height="1"/><rect x="2.5" y="3.5" width="1" height="1"/><rect x="2.5" y="4.5" width="1" height="1"/><rect x="3.5" y="0.5" width="1" height="1"/><rect x="3.5" y="2.5" width="1" height="1"/><rect x="3.5" y="3.5" width="1" height="1"/><rect x="4.5" y="0.5" width="1" height="1"/><rect x="4.5" y="2.5" width="1" height="1"/><rect x="4.5" y="4.5" width="1" height="1"/></g></svg></div>
             <div>
               <h3>Cris John Rey Tarpin</h3>
               <p class="role">Senior IT Manager</p>
@@ -659,7 +728,7 @@
             </div>
           </article>
           <article class="member alt reveal">
-            <div class="avatar" aria-hidden="true">JY</div>
+            <div class="avatar"><svg viewBox="0 0 6 6" shape-rendering="crispEdges" role="img" aria-label="Jul Maico Yamba avatar"><rect width="6" height="6" fill="#f0f0f0"/><g fill="#d13bc4"><rect x="0.5" y="2.5" width="1" height="1"/><rect x="0.5" y="3.5" width="1" height="1"/><rect x="0.5" y="4.5" width="1" height="1"/><rect x="1.5" y="0.5" width="1" height="1"/><rect x="2.5" y="4.5" width="1" height="1"/><rect x="3.5" y="0.5" width="1" height="1"/><rect x="4.5" y="2.5" width="1" height="1"/><rect x="4.5" y="3.5" width="1" height="1"/><rect x="4.5" y="4.5" width="1" height="1"/></g></svg></div>
             <div>
               <h3>Jul Maico Yamba</h3>
               <p class="role">Software Developer</p>
@@ -680,7 +749,11 @@
         <div class="faq reveal">
           <details>
             <summary>Where can I download your apps?</summary>
-            <p>Helpline is available now on <a href="https://play.google.com/store/apps/details?id=com.helpline.app" target="_blank" rel="noopener">Google Play</a>. Dejadot can be downloaded as an APK from its release page, and WayBack is in early access and coming soon.</p>
+            <p>Helpline is available now on <a href="https://play.google.com/store/apps/details?id=com.helpline.app" target="_blank" rel="noopener">Google Play</a>. Helpline Track is for response stations and is available on request. Dejadot can be downloaded as an APK from its release page, and WayBack is in early access and coming soon.</p>
+          </details>
+          <details>
+            <summary>What is Helpline Track?</summary>
+            <p>Helpline Track is the console that response stations use to receive SOS requests sent from Helpline. It isn't a public download: stations get an account from us. If you run a rescue, medical or security team and want to receive Helpline SOS requests in your area, <a href="mailto:jyamz7690@gmail.com?subject=Helpline%20Track%20station%20access">email us</a>.</p>
           </details>
           <details>
             <summary>Are your apps free?</summary>
@@ -688,7 +761,7 @@
           </details>
           <details>
             <summary>Do you collect my personal data?</summary>
-            <p>As little as possible. Dejadot and WayBack keep everything on your phone. Helpline sends your location to our server only to find emergency contacts near you. Our <a href="/privacy">Privacy Policy</a> lists every detail, app by app.</p>
+            <p>As little as possible. Dejadot and WayBack keep everything on your phone. Helpline sends your location to our server to find emergency contacts near you, and if you send an SOS, your details go to nearby response stations. Our <a href="/privacy">Privacy Policy</a> lists every detail, app by app.</p>
           </details>
           <details>
             <summary>Which platforms do you support?</summary>
@@ -746,6 +819,7 @@
             <li><a href="https://play.google.com/store/apps/details?id=com.helpline.app" target="_blank" rel="noopener">Helpline</a></li>
             <li><a href="#apps">Dejadot</a></li>
             <li><a href="#apps">WayBack</a></li>
+            <li><a href="#helpline-track">Helpline Track</a></li>
           </ul>
         </div>
         <div>
