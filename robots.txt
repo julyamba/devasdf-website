@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://devasdf.vercel.app/sitemap.xml
