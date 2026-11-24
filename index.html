@@ -179,7 +179,31 @@
     .app-card .foot small { color: var(--dim); font-size: 14px; }
     .app-card .foot a.link { font-weight: 600; font-size: 15px; color: var(--text); display: inline-flex; align-items: center; gap: 6px; }
     .app-card .foot a.link:hover { color: var(--accent); }
-    .app-card .foot .soon { font-weight: 600; font-size: 15px; color: var(--dim); }
+    .dl-btn {
+      display: inline-flex; align-items: center; gap: 8px; height: 46px; padding: 0 18px 0 16px;
+      border-radius: 999px; font-weight: 600; font-size: 15px; color: #10130a;
+      background: var(--accent); transition: transform .2s ease, filter .2s ease;
+    }
+    .dl-btn:hover { color: #10130a; filter: brightness(1.08); transform: translateY(-1px); }
+    .dl-btn svg { width: 18px; height: 18px; }
+    .dl-btn.loading { pointer-events: none; opacity: .7; }
+
+    .toast {
+      position: fixed; z-index: 60; left: 50%; bottom: calc(24px + env(safe-area-inset-bottom));
+      width: min(440px, calc(100% - 32px)); translate: -50% 0;
+      display: grid; grid-template-columns: auto 1fr; gap: 14px; align-items: start;
+      padding: 16px 18px; border-radius: 18px;
+      background: rgba(17, 20, 39, .96); border: 1px solid var(--line);
+      backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+      box-shadow: var(--shadow);
+      opacity: 0; transform: translateY(16px); pointer-events: none;
+      transition: opacity .3s ease, transform .3s ease;
+    }
+    .toast.show { opacity: 1; transform: none; pointer-events: auto; }
+    .toast img { width: 44px; height: 44px; border-radius: 12px; }
+    .toast b { display: block; font-size: 15.5px; margin-bottom: 2px; }
+    .toast p { margin: 0; font-size: 14px; color: var(--muted); }
+    .toast a { font-weight: 600; }
 
     .gplay {
       display: inline-flex; align-items: center; gap: 10px; height: 48px; padding: 0 16px 0 14px;
@@ -580,8 +604,8 @@
               <li>No ads, no account, works offline</li>
             </ul>
             <div class="foot">
-              <small>Android · APK</small>
-              <a class="link" href="https://github.com/julyamba/dejadot-page/releases/latest" target="_blank" rel="noopener">Download →</a>
+              <small class="dl-meta" data-ver-for="julyamba/dejadot-page">Android · APK</small>
+              <a class="dl-btn" href="https://github.com/julyamba/dejadot-page/releases/latest" target="_blank" rel="noopener" data-repo="julyamba/dejadot-page" data-app="Dejadot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"/></svg><span>Download</span></a>
             </div>
           </article>
 
@@ -599,8 +623,8 @@
               <li>Fully offline, no account needed</li>
             </ul>
             <div class="foot">
-              <small>Android · Early access</small>
-              <span class="soon">Coming soon</span>
+              <small class="dl-meta" data-ver-for="julyamba/way-back">Android · APK</small>
+              <a class="dl-btn" href="https://github.com/julyamba/way-back/releases/latest" target="_blank" rel="noopener" data-repo="julyamba/way-back" data-app="WayBack"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"/></svg><span>Download</span></a>
             </div>
           </article>
         </div>
@@ -749,7 +773,7 @@
         <div class="faq reveal">
           <details>
             <summary>Where can I download your apps?</summary>
-            <p>Helpline is available now on <a href="https://play.google.com/store/apps/details?id=com.helpline.app" target="_blank" rel="noopener">Google Play</a>. Helpline Track is for response stations and is available on request. Dejadot can be downloaded as an APK from its release page, and WayBack is in early access and coming soon.</p>
+            <p>Helpline is available now on <a href="https://play.google.com/store/apps/details?id=com.helpline.app" target="_blank" rel="noopener">Google Play</a>. Helpline Track is for response stations and is available on request. Dejadot and WayBack can be downloaded as APK files: tap <em>Download</em> on their cards. On an Android phone the file downloads straight away; open it to install, and allow <em>Install unknown apps</em> for your browser if Android asks.</p>
           </details>
           <details>
             <summary>What is Helpline Track?</summary>
@@ -846,6 +870,12 @@
     </div>
   </footer>
 
+  <!-- APK download toast -->
+  <div class="toast" id="toast" role="status" aria-live="polite">
+    <img id="toast-icon" src="" alt="" width="44" height="44">
+    <div><b id="toast-title"></b><p id="toast-text"></p></div>
+  </div>
+
   <!-- Mobile sticky action bar -->
   <div class="m-bar" id="m-bar">
     <a class="btn" href="#apps">Our apps</a>
@@ -901,6 +931,63 @@
       new IntersectionObserver(([e]) => { vis.end = e.isIntersecting || e.boundingClientRect.top < 0; upd(); })
         .observe(document.getElementById('contact'));
     }
+
+    // ---------- APK downloads (Dejadot, WayBack) ----------
+    // Desktop: open the latest GitHub release page.
+    // Android: download the .apk from the latest release straight away.
+    const isAndroid = /Android/i.test(navigator.userAgent);
+    const releases = {};   // repo -> Promise<{ tag, apk, page }>
+
+    const getRelease = repo => releases[repo] ||= (async () => {
+      const key = 'rel:' + repo;
+      try { const c = JSON.parse(sessionStorage.getItem(key)); if (c && Date.now() - c.t < 10 * 60e3) return c.d; } catch (_) {}
+      const res = await fetch(`https://api.github.com/repos/${repo}/releases/latest`, { headers: { Accept: 'application/vnd.github+json' } });
+      if (!res.ok) throw new Error('GitHub API ' + res.status);
+      const j = await res.json();
+      const apk = (j.assets || []).find(a => /\.apk$/i.test(a.name));
+      const d = { tag: j.tag_name, apk: apk ? apk.browser_download_url : null, size: apk ? apk.size : 0, page: j.html_url };
+      try { sessionStorage.setItem(key, JSON.stringify({ t: Date.now(), d })); } catch (_) {}
+      return d;
+    })();
+
+    // Show the current version next to each button
+    document.querySelectorAll('.dl-btn').forEach(b => {
+      getRelease(b.dataset.repo).then(r => {
+        const meta = document.querySelector(`[data-ver-for="${b.dataset.repo}"]`);
+        if (meta && r.tag) meta.textContent = `Android · ${r.tag}` + (r.size ? ` · ${(r.size / 1048576).toFixed(0)} MB` : '');
+        if (isAndroid && r.apk) b.href = r.apk;   // long-press / open-in-new-tab also gets the APK
+      }).catch(() => {});
+    });
+
+    const toast = document.getElementById('toast');
+    let toastTimer;
+    const showToast = (icon, title, html) => {
+      document.getElementById('toast-icon').src = icon;
+      document.getElementById('toast-title').textContent = title;
+      document.getElementById('toast-text').innerHTML = html;
+      toast.classList.add('show');
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => toast.classList.remove('show'), 9000);
+    };
+
+    document.addEventListener('click', async e => {
+      const b = e.target.closest('.dl-btn');
+      if (!b || !isAndroid) return;           // desktop: normal link to the release page
+      e.preventDefault();
+      const icon = b.closest('.app-card').querySelector('.icon').src;
+      b.classList.add('loading');
+      try {
+        const r = await getRelease(b.dataset.repo);
+        if (!r.apk) throw new Error('no apk');
+        window.location.href = r.apk;          // starts the APK download
+        showToast(icon, `Downloading ${b.dataset.app} ${r.tag}…`,
+          `When it finishes, open the file to install. If Android asks, allow <em>Install unknown apps</em> for your browser.`);
+      } catch (_) {
+        window.location.href = `https://github.com/${b.dataset.repo}/releases/latest`;   // fallback: release page
+      } finally {
+        b.classList.remove('loading');
+      }
+    });
 
     document.getElementById('year').textContent = new Date().getFullYear();
   </script>
