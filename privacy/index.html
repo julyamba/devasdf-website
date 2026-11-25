@@ -30,13 +30,14 @@
     <div class="wrap">
       <p class="eyebrow">Legal</p>
       <h1>Privacy Policy</h1>
-      <p class="meta">Effective date: 24 November 2026 · Last updated: 24 November 2026</p>
+      <p class="meta">Effective date: 24 November 2026 · Last updated: 26 November 2026</p>
 
       <div class="summary">
         <p><strong>The short version</strong></p>
         <ul>
           <li>We do not sell, rent or trade your personal data, and we do not use advertising or analytics SDKs in our apps.</li>
-          <li><strong>Dejadot</strong> and <strong>WayBack</strong> keep all your data on your phone. We never receive it.</li>
+          <li><strong>Dejadot</strong> keeps your game on your phone. Its online <strong>Ranks</strong> are optional: only if you tap <em>Join</em> does it send a nickname, your avatar and your best scores to our server, to show on public leaderboards. You can leave and delete them in the app.</li>
+          <li><strong>WayBack</strong> keeps all your data on your phone. We never receive it.</li>
           <li><strong>Helpline</strong> sends your device's location to our server to find emergency contacts near you. If you send an <strong>SOS</strong>, your location and the details you entered go to nearby response stations so they can help you.</li>
           <li><strong>Helpline Track</strong> is used by response stations. They see SOS requests only within their area, and only to respond to them.</li>
           <li>SOS requests, messages and voice notes are deleted <strong>30 days</strong> after the request ends.</li>
@@ -84,17 +85,61 @@
         <h2>3. Dejadot<small>com.dejadot.app · Game</small></h2>
       </div>
       <h3>Information we collect</h3>
-      <p>We do not collect any personal information through Dejadot. The game has no sign-up, no ads, no analytics and no crash-reporting service, and it does not send your gameplay data to us.</p>
+      <p>Dejadot plays fully offline. It has no sign-up, no ads, no analytics and no crash-reporting service. We collect nothing unless you choose to join <strong>Ranks</strong>, the game's optional online leaderboards.</p>
+      <h3 id="dejadot-ranks">Ranks (optional online leaderboards)</h3>
+      <p>Ranks stays off until you tap <em>Join</em>. When you join, the app creates an anonymous account (a random account ID, with no email, password or phone number) and sends the following to our server:</p>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Data</th><th>Why we use it</th><th>Who can see it</th></tr></thead>
+          <tbody>
+            <tr>
+              <td><strong>Random account ID</strong></td>
+              <td>To keep your scores together and make sure only you can change them.</td>
+              <td>Not shown to other players.</td>
+            </tr>
+            <tr>
+              <td><strong>Nickname</strong> and a number tag (for example <code>Super#4821</code>)</td>
+              <td>To show who you are on the leaderboards. The tag tells players with the same nickname apart.</td>
+              <td>Public, to everyone using Dejadot.</td>
+            </tr>
+            <tr>
+              <td><strong>Avatar</strong> (the in-game items you picked), <strong>rank title</strong> and <strong>Shadow Path level</strong></td>
+              <td>To show your profile on the leaderboards.</td>
+              <td>Public.</td>
+            </tr>
+            <tr>
+              <td><strong>Best scores</strong> for Classic and Shadow Draft, with the coins collected, the theme each was set in and when it was sent</td>
+              <td>To rank you, and to check that scores are possible in the game.</td>
+              <td>Public (scores and rank).</td>
+            </tr>
+            <tr>
+              <td><strong>Player card extras</strong>: pinned badges, highest multiplier, deepest round and card theme</td>
+              <td>To show your player card when someone taps your name on the leaderboard.</td>
+              <td>Public.</td>
+            </tr>
+            <tr>
+              <td><strong>Times you sent scores</strong></td>
+              <td>To limit how often scores can be sent, which prevents abuse.</td>
+              <td>Not shown to other players.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p>Your nickname is public, so don't use your real name if you don't want it shown. Nicknames are checked against a list of blocked words, and we may hide a nickname or score that breaks the rules.</p>
+      <p><strong>Where it is stored:</strong> with our backend provider, Supabase (Tokyo region), sent over an encrypted connection (HTTPS). Like any server, Supabase may keep standard technical logs, including IP addresses, for a short time for security and abuse prevention.</p>
+      <p><strong>Leaving Ranks:</strong> open <em>Settings → Online ranks → Leave Ranks and delete online data</em> and tap again to confirm. Your account, profile and scores are deleted from our server right away. Your progress on the phone is kept. See <a href="#deletion">Data deletion</a>.</p>
+      <p>Opening the Ranks page shows the leaderboards even before you join. Loading them sends no personal data.</p>
       <h3>Information stored on your device</h3>
-      <p>To play, the app saves the following only on your phone: scores, best runs, stats, achievements and streaks; unlocked themes and progress; settings such as sound, haptics and steering sensitivity; and the profile name and look you choose in the app.</p>
+      <p>To play, the app saves the following only on your phone: scores, best runs, stats, achievements and streaks; unlocked themes and progress; settings such as sound, haptics and steering sensitivity; and the profile name and look you choose in the app. If you join Ranks, the sign-in for your anonymous account and any scores waiting to be sent are also kept on the phone. They are left out of Android's app backup.</p>
       <h3>Permissions</h3>
       <ul>
         <li><strong>Vibration</strong>: for haptic feedback during play. You can turn haptics off in Settings.</li>
+        <li><strong>Internet and network state</strong>: only for Ranks: to load the leaderboards and, if you joined, to send your profile and best scores when a connection is available. Every game mode plays without a connection.</li>
       </ul>
       <h3>Backups and sharing</h3>
       <p>Android may back up app data to your Google account (Android Auto Backup); this is controlled by you in your phone's settings and handled by Google. If you turn on <em>Progress backup</em>, the app writes a file to a location you choose; we never receive it. When you tap <em>Share</em>, the app creates an image or video on your phone and opens Android's share menu. Nothing is sent until you choose an app to share with.</p>
-      <h3>Google Play Games</h3>
-      <p>If online leaderboards through Google Play Games are available and you choose to use them, your scores and Play Games profile name are handled by Google under the <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Google Privacy Policy</a>.</p>
+      <h3>App updates</h3>
+      <p>Dejadot may ask Google Play whether a newer version is available and offer to install it. This check is handled by the Google Play Store on your phone, under the <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Google Privacy Policy</a>. Dejadot does not use Google Play Games.</p>
 
       <!-- ===== HELPLINE ===== -->
       <div class="app-tag" id="helpline">
@@ -242,8 +287,8 @@
       <h2 id="third-parties">8. Third-party services</h2>
       <p>We share data only with the services needed to run our apps and website. Each is responsible for its own handling of data:</p>
       <ul>
-        <li><strong>Google Play</strong> (installs, updates, optional Play Games): <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Google Privacy Policy</a></li>
-        <li><strong>Supabase</strong> (Helpline SOS data, Helpline Track accounts, voice notes): <a href="https://supabase.com/privacy" target="_blank" rel="noopener">Supabase Privacy Policy</a></li>
+        <li><strong>Google Play</strong> (installs and in-app updates): <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Google Privacy Policy</a></li>
+        <li><strong>Supabase</strong> (Dejadot Ranks accounts and scores; Helpline SOS data, Helpline Track accounts, voice notes): <a href="https://supabase.com/privacy" target="_blank" rel="noopener">Supabase Privacy Policy</a></li>
         <li><strong>OpenStreetMap tiles</strong> (Helpline Track maps): <a href="https://osmfoundation.org/wiki/Privacy_Policy" target="_blank" rel="noopener">OSMF Privacy Policy</a></li>
         <li><strong>OSRM / Project OSRM</strong> (Helpline Track driving routes; receives start and end coordinates): <a href="https://project-osrm.org/" target="_blank" rel="noopener">project-osrm.org</a></li>
         <li><strong>GitHub</strong> (Helpline downloads its app settings and contact directory files; GitHub sees your IP address): <a href="https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement" target="_blank" rel="noopener">GitHub Privacy Statement</a></li>
@@ -259,6 +304,7 @@
       <h2 id="retention">10. Data retention</h2>
       <ul>
         <li><strong>On-device data</strong> (all apps): kept until you delete it in the app, clear the app's storage, or uninstall the app.</li>
+        <li><strong>Dejadot Ranks</strong>: your account, profile and scores are kept while you are in Ranks, and deleted right away when you leave Ranks in the app (or within 30 days of an emailed request).</li>
         <li><strong>Helpline location lookups</strong>: used to answer the request. Any server logs containing them are kept for no longer than 30 days for security and troubleshooting, then deleted.</li>
         <li><strong>Helpline SOS requests, messages, voice notes and photos</strong>: deleted 30 days after the request is resolved, cancelled or expires.</li>
         <li><strong>Helpline Track station accounts and settings</strong>: kept while the station account is active, and deleted within 30 days after the account is closed.</li>
@@ -269,16 +315,17 @@
       <p>You can delete your data at any time:</p>
       <ul>
         <li><strong>Data on your phone</strong>: delete items in the app, or go to <em>Settings → Apps → [app name] → Storage → Clear storage</em>, or uninstall the app. For WayBack, also delete the <code>WayBack</code> folder if you chose to keep copies of your trails.</li>
+        <li><strong>Dejadot Ranks</strong>: in the app, open <em>Settings → Online ranks → Leave Ranks and delete online data</em>, then tap again to confirm. Your anonymous account, profile and all your scores are deleted from our server right away, and your progress on the phone is kept. If you can no longer open the app, email us (below) with your nickname and tag, for example <code>Super#4821</code>.</li>
         <li><strong>An active SOS</strong>: cancel it in the Help tab. It is then deleted 30 days later, or sooner if you ask us.</li>
         <li><strong>Data on our servers</strong>: email us at <a href="mailto:jyamz7690@gmail.com?subject=Data%20deletion%20request">jyamz7690@gmail.com</a> with the subject "Data deletion request" and the app name. We will confirm and complete the request within 30 days.</li>
       </ul>
-      <p>Dejadot, Helpline and WayBack do not require an account. Helpline Track stations can ask us to close their account and delete its data by emailing us.</p>
+      <p>Helpline and WayBack do not require an account, and neither does Dejadot. Dejadot's optional Ranks use an anonymous account, which you can delete in the app as described above. Helpline Track stations can ask us to close their account and delete its data by emailing us.</p>
 
       <h2 id="rights">12. Your rights</h2>
       <p>Depending on where you live, you may have the right to access, correct, delete or restrict the use of your personal data, to object to processing, and to data portability. To use any of these rights, contact us using the details below. You can also withdraw location or other permissions at any time in your phone's settings. You may also have the right to complain to your local data protection authority.</p>
 
       <h2 id="children">13. Children</h2>
-      <p>Our apps are not directed at children under 13, and we do not knowingly collect personal information from children. Dejadot collects no personal data from any player. If you believe a child has sent us personal information, contact us and we will delete it.</p>
+      <p>Our apps are not directed at children under 13, and we do not knowingly collect personal information from children. Dejadot collects nothing unless a player chooses to join Ranks, and then only a nickname and game data (see <a href="#dejadot-ranks">Dejadot Ranks</a>). If you believe a child has sent us personal information, contact us and we will delete it.</p>
 
       <h2 id="changes">14. Changes to this policy</h2>
       <p>We may update this policy when our apps change or when the law requires. We will post the new version on this page and update the "Last updated" date above. If a change significantly affects how we handle your data, we will also mention it in the app's release notes.</p>
